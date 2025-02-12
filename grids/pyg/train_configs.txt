@@ -1,0 +1,27 @@
+# Format for each row: name in config.py; alias; range to search
+# No spaces, except between these 3 fields
+# Line breaks are used to union different grid search spaces
+# Feel free to add '#' to add comments
+
+# ############### Intra-layer design dimensions #################
+gnn.batchnorm bn [True,False]
+gnn.dropout drop [0.0,0.3,0.6]
+gnn.has_act ha [True,False]
+gnn.act act ['prelu','relu','swish']
+gnn.agg agg ['add','mean','max','powermean','softmax']
+gnn.l2norm ln [True,False]
+gnn.dim_inner di [16,32,64]
+# gnn.attention att [True,False]
+gnn.att_type at ['additive','dot_product']
+gnn.att_heads ah [1,3,6]
+# ############### Inter-layer design dimensions ##################
+gnn.stage_type stage ['stack','skipsum','skipconcat']
+gnn.layers_pre_mp l_pre [1,2,3]
+gnn.layers_mp l_mp [2,4,6,8]
+gnn.layers_post_mp l_post [1,2,3]
+# ############### Model level design dimensions ###################
+model.graph_pooling gp ['add','mean','max']
+
+train.batch_size bs [16, 32, 64]
+optim.base_lr lr [0.1, 0.01, 0.001]
+optim.optimizer op ['sgd','adam','']
