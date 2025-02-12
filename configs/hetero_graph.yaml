@@ -1,0 +1,47 @@
+out_dir: results
+dataset:
+  edge_dim: 0
+  format: PyG
+  name: TU_HETERO_CAR_WITH_PLATE_MINI
+  task: graph
+  task_type: regression
+  node_encoder: false
+  edge_encoder: false
+  node_types: ['beam', 'plate']
+  metadata: (['beam', 'plate'], [('beam', 'beam_beam', 'beam'), ('plate', 'plate_plate', 'plate'), ('beam', 'beam_plate', 'plate'), ('plate', 'plate_beam', 'beam')])
+train:
+  batch_size: 32
+  eval_period: 1
+  ckpt_period: 100
+  sampler: full_batch
+model:
+  type: heterognn
+  loss_fun: mse
+  add_pinn: true
+  graph_pooling: add
+gnn:
+  layers_pre_mp: 2
+  layers_mp: 2
+  layers_post_mp: 1
+  l2norm: false
+  dim_inner: 64
+  layer_type: hgtconv
+  stage_type: stack
+  batchnorm: true
+  has_act: true
+  act: prelu
+  dropout: 0.0
+  agg: max
+  normalize_adj: false
+  attention: false
+  att_heads: 4
+  att_type: additive
+num_workers: 0
+metric_best: precision
+optim:
+  optimizer: adam
+  base_lr: 0.01
+  max_epoch: 1000
+seed: 2021
+tensorboard_agg: false
+round: 5

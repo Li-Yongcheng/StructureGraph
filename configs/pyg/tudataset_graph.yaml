@@ -1,0 +1,43 @@
+out_dir: results
+dataset:
+  edge_dim: 4
+  format: PyG
+  name: TU_DOOR_DATA
+  task: graph
+  task_type: regression
+  node_encoder: false
+  edge_encoder: false
+train:
+  batch_size: 32
+  eval_period: 1
+  ckpt_period: 100
+  sampler: full_batch
+model:
+  type: gnn
+  loss_fun: mse
+  graph_pooling: add
+gnn:
+  layers_pre_mp: 1
+  layers_mp: 8
+  layers_post_mp: 1
+  l2norm: false
+  dim_inner: 64
+  layer_type: generalconv
+  stage_type: skipconcat
+  batchnorm: true
+  has_act: false
+  act: prelu
+  dropout: 0.0
+  agg: mean
+  normalize_adj: false
+  attention: true
+  att_heads: 1
+  att_type: additive
+num_workers: 0
+metric_best: precision
+optim:
+  optimizer: adam
+  base_lr: 0.01
+  max_epoch: 100
+tensorboard_agg: false
+round: 5
